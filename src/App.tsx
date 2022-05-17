@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import useGetCountries from "./apiCalls/useGetCountries";
+import styles from "./App.module.css";
+import Card from "./components/card";
 
-function App() {
+const App = () => {
+  const { loading, countries, error } = useGetCountries();
+  if (loading) return <div>loading</div>;
+  if (error) return <div>opps....something went wrong!</div>;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.App}>
+      <div id={styles.cards_container}>
+        {countries?.map((country) => (
+          <Card
+            name={country.name}
+            flag={country.flag}
+            capital={country.capital}
+            region={country.region}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
