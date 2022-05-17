@@ -6,7 +6,7 @@ interface InputPropsType extends InputHTMLAttributes<HTMLInputElement> {
 }
 const Input: FC<InputPropsType> = ({ placeholder, ...props }) => {
   return (
-    <input placeholder={placeholder} {...props} className={styles.Input} />
+    <input placeholder={placeholder} {...props} className={styles.input} />
   );
 };
 

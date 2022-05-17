@@ -14,7 +14,7 @@ const Search: FC<SearchPropsType> = ({ handleSearch }) => {
   return (
     <div>
       <Input
-        placeholder="write your text here...."
+        placeholder="Type your country here...."
         value={inputValue}
         onChange={(e) => handleOnchange(e.target.value)}
       />

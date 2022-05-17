@@ -15,6 +15,14 @@
   width: 100%;
 }
 
+#loading_and_error {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 @media screen and (min-width: 40em) {
   #cards_container {
     display: flex;

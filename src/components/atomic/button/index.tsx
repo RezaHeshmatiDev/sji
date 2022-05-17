@@ -7,7 +7,7 @@ interface ButtonPropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: FC<ButtonPropsType> = ({ title, ...props }) => {
   return (
-    <button {...props} className={styles.Button}>
+    <button {...props} className={styles.button}>
       {title}
     </button>
   );

@@ -1,37 +1,41 @@
 import React from "react";
 
-export type responseType = {
+export type ResponseType = {
   name: string;
   capital: string;
-  altSpellings: string[];
   region: string;
   population: number;
-  area: number;
-  timezones: string[];
-  nativeName: string;
   flag: string;
 }[];
 
-const getCountries: () => Promise<responseType> = () =>
-  fetch("https://restcountries.com/v2/all").then((res) => res.json());
+const getCountries: () => Promise<ResponseType> = () =>
+  fetch(
+    "https://restcountries.com/v2/all?fields=name,capital,region,population,flag"
+  ).then((res) => res.json());
 
 const useGetCountries: () => {
   loading: boolean;
   error: Error | undefined;
-  countries: responseType | undefined;
+  countries: ResponseType | undefined;
   fetchCountries: () => void;
 } = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | undefined>(undefined);
-  const [countries, setCountries] = React.useState<responseType | undefined>(
+  const [countries, setCountries] = React.useState<ResponseType | undefined>(
     undefined
   );
 
   const fetchCountries = () => {
     setLoading(true);
     getCountries()
-      .then((res) => setCountries(res))
-      .catch((err) => setError(err))
+      .then((res) => {
+        setCountries(res);
+        setError(undefined);
+      })
+      .catch((err) => {
+        setError(err);
+        setCountries(undefined);
+      })
       .finally(() => setLoading(false));
   };
   React.useEffect(() => {

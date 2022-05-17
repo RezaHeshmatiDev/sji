@@ -9,24 +9,31 @@ import Search from "./components/search";
 
 const App = () => {
   const { loading, countries, error } = useGetCountries();
-  const [filteredCountries, setFilterdCountries] = React.useState<
-    countriesType | undefined
-  >(undefined);
 
+  const [filteredCountries, setFilteredCountries] = React.useState<
+    countriesType | undefined
+  >(countries);
+  const ref = React.useRef(false);
   React.useEffect(() => {
-    if (countries) setFilterdCountries([...countries]);
+    ref.current = false;
+  }, []);
+  React.useEffect(() => {
+    if (countries) setFilteredCountries([...countries]);
   }, [countries]);
 
   const handleOnSearch = (searchedCountry: string) => {
-    const filteredValue = countries?.filter((fc) =>
-      fc.name.toLowerCase().includes(searchedCountry)
+    const filteredValues = countries?.filter((country) =>
+      country.name.toLowerCase().includes(searchedCountry)
     );
-    if (filteredValue?.length) setFilterdCountries([...filteredValue]);
-    else setFilterdCountries(undefined);
+    if (filteredValues?.length) setFilteredCountries([...filteredValues]);
+    else setFilteredCountries(undefined);
   };
 
-  if (loading) return <div>loading...</div>;
-  if (error) return <div>opps....something went wrong!</div>;
+  if (loading) return <div id={styles.loading_and_error}>Loading...</div>;
+  if (error)
+    return (
+      <div id={styles.loading_and_error}>Opps....Something went wrong!</div>
+    );
   return (
     <div className={styles.App}>
       <Header />
@@ -39,9 +46,9 @@ const App = () => {
           filteredCountries?.map(({ name, flag, capital, region }) => (
             <Card name={name} flag={flag} capital={capital} region={region} />
           ))
-        ) : (
-          <div>there is no country!</div>
-        )}
+        ) : ref.current ? (
+          <div>There is no country!</div>
+        ) : undefined}
       </div>
     </div>
   );

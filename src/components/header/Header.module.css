@@ -1,9 +1,8 @@
 #header_container {
-    width: 100%;
-    background-color: #2cbb84;
-    height: 3rem;
-    padding: .5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #2cbb84;
+  height: 3rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
